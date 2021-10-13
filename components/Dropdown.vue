@@ -12,12 +12,10 @@
   </button>
 </template>
 
-<script lang="ts">
+<script>
 import Popper from 'popper.js'
 import { Portal } from 'portal-vue'
-import Vue from 'vue'
-
-export default Vue.extend({
+export default {
   components: {
     Portal
   },
@@ -50,7 +48,7 @@ export default Vue.extend({
           })
         })
       } else if (this.popper) {
-          setTimeout(() => this.popper.destroy(), 100);
+        setTimeout(() => this.popper.destroy(), 100);
       }
     },
   },
@@ -61,11 +59,11 @@ export default Vue.extend({
       }
     })
   },
-    methods: {
-      showNow() {
-          this.show = true;
-          console.log("should be showing");
-      }
+  methods: {
+    showNow() {
+      this.show = true;
+      console.log("should be showing");
     }
-})
+  }
+}
 </script>

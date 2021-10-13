@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'gva',
+    title: 'Great Vacation Adventures',
     htmlAttrs: {
       lang: 'en'
     },
@@ -12,8 +12,92 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com'
+      },
+      {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com'
+      },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.cdnfonts.com/css/brush-king' }
     ]
+  },
+
+  auth: {
+    rewriteRedirects: true,
+    fullPathRedirect: true,
+    cookie: {
+      prefix: 'auth.',
+      options: {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 30
+      }
+    },
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/order'
+    },
+    router: {
+      middleware: ['auth']
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: false,
+          autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/api/login', method: 'post' },
+          logout: false,
+          user: { url: '/api/me', method: 'get' }
+        }
+      },
+      google: {
+        scheme: 'oauth2',
+        clientId: '353107788542-qccnahstd2fg37fkldlbgkam3uu8loc0.apps.googleusercontent.com',
+        codeChallengeMethod: 'S256',
+        scope: ['openid', 'profile', 'email'],
+        responseType: 'code',
+        endpoints: {
+          userInfo: 'http://localhost:3000/api/me',
+          token: 'http://localhost:3000/api/login?callback=true&provider=google', // post request with code property in exchange for token
+          logout: false
+        },
+        token: {
+          property: 'token',
+          type: 'Bearer'
+        },
+        redirectUri: `http://localhost:3000/login`,
+        grantType: 'authorization_code'
+      },
+      facebook: {
+        scheme: 'oauth2',
+        endpoints: {
+          // userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email'
+          userInfo: 'http://localhost:3000/api/me',
+          token: 'http://localhost:3000/api/login?callback=true&provider=facebook',
+          logout: false
+        },
+        clientId: '525187695512107',
+        scope: ['public_profile', 'email'],
+        redirectUri: `http://localhost:3000/login`,
+        token: {
+          property: 'token',
+          type: 'Bearer'
+        },
+        responseType: 'code',
+      },
+    }
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -22,6 +106,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    `~/plugins/currency.js`
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -42,7 +127,26 @@ export default {
     '@nuxt/image',
     '@nuxtjs/toast',
     'portal-vue/nuxt',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    '@nuxtjs/proxy',
   ],
+
+  image: {
+    // Options
+  },
+
+  axios: {
+    withCredentials: true,
+    baseURL: "/api/",
+    proxy: true
+  },
+
+  tailwindcss: {
+    configPath: '~/config/tailwind.config.js',
+    exposeConfig: false
+  },
+
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
