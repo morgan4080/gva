@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="absolute top-0 w-full z-20 font-sans" :class="{ 'border-0 bg-gradient-to-tr from-yellow-gold to-yellow-600' : !som, 'bg-transparent border-0' : som }">
+  <div id='fixedH'>
+    <div class="absolute top-0 w-full z-20 font-sans" :class="{ 'bg-transparent border-0' : !som, 'bg-transparent border-0' : som }">
       <div class="max-w-6xl mx-auto py-5" >
         <div class="w-full h-auto" >
           <div class="flex items-center justify-between" >
@@ -9,15 +9,15 @@
                 <Logo />
               </nuxt-link>
             </div>
-            <div class="hidden lg:flex items-center relative text-white" >
+            <div id='textC' class="hidden lg:flex items-center relative text-white" >
               <nuxt-link to="/about" :class="{ 'text-black' : som , 'text-black' : !som  }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
                 About us
               </nuxt-link>
-              <nuxt-link to="/papers" :class="{ 'text-black' : som , 'text-black' : !som }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
-                Sample papers
-              </nuxt-link>
               <nuxt-link to="/blogs" :class="{ 'text-black' : som , 'text-black' : !som }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
-                Blog
+                Contact Us
+              </nuxt-link>
+              <nuxt-link to="/offers" :class="{ 'text-black' : som , 'text-black' : !som }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
+                Offers
               </nuxt-link>
               <nuxt-link to="/services" :class="{ 'text-black' : som , 'text-black' : !som }" class="group uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green inline-block" >
                 <span class="flex flex-row items-center" @mouseover="showSubMenu0 = true" @mouseleave="checkMousePos($event)" >
@@ -298,7 +298,7 @@
               </nuxt-link>
 
               <nuxt-link to="/order" class="uppercase bg-black inline-block mx-2 tracking-wide font-semibold py-3 px-4 text-white rounded-full transform hover:scale-105 transition ease-in-out duration-100" style="border-color: #49544e;">
-                New Order
+                Get Quote
               </nuxt-link>
 
               <div v-show="!$auth.loggedIn" class="relative flex justify-center text-left">
@@ -385,10 +385,10 @@
             </div>
             <div class="lg:hidden mx-8 absolute z-20 right-0" >
               <button class="block lg:hidden inline-flex items-center justify-center p-2 rounded-md text-black hover:text-white focus:outline-none focus:text-white" @click="showMobileMenu = !showMobileMenu" >
-                <svg v-if="!showMobileMenu" stroke="#000000" fill="none" viewBox="0 0 24 24" class="h-6 w-6" >
+                <svg v-if="!showMobileMenu" stroke="#d97706" fill="none" viewBox="0 0 24 24" class="h-6 w-6" >
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" ></path>
                 </svg>
-                <svg v-if="showMobileMenu" stroke="currentColor" fill="none" viewBox="0 0 24 24" class="h-6 w-6">
+                <svg v-if="showMobileMenu" stroke="#000000" fill="none" viewBox="0 0 24 24" class="h-6 w-6">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </button>
@@ -401,7 +401,7 @@
               leave-class="opacity-100 translate-y-0"
               leave-to-class="opacity-0 translate-y-1"
             >
-              <div v-if="showMobileMenu" class="absolute block flex flex-col px-4 pt-12 top-0 w-full pb-12 shadow-2xl" style="background: rgba(66, 251, 183, 1);">
+              <div v-if="showMobileMenu" class="absolute block flex flex-col px-4 pt-12 top-0 w-full pb-12 shadow-2xl bg-gradient-to-tr from-yellow-gold to-yellow-600">
                 <nuxt-link v-for='menu in mobile_menu' :key='menu.id' :to="menu.href" class="text-black font-semibold py-3 px-5" @click="turnOff" >
                   <span class="w-full block" @click="turnOff">{{ menu.name }}</span>
                 </nuxt-link>
@@ -415,7 +415,11 @@
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue"
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger.js";
+import Logo from "~/components/Logo.vue";
+
 
 export default {
   components: {
@@ -442,6 +446,21 @@ export default {
           id: 1,
           name: 'About Us',
           href: '/about'
+        },
+        {
+          id: 2,
+          name: 'Contact Us',
+          href: '/about'
+        },
+        {
+          id: 3,
+          name: 'Offers',
+          href: '/about'
+        },
+        {
+          id: 4,
+          name: 'Services',
+          href: '/about'
         }
       ]
     }
@@ -465,12 +484,47 @@ export default {
   },
   mounted() {
     if (this.$router.currentRoute.fullPath === "/") this.som = true
+    gsap.registerPlugin(ScrollTrigger);
+    this.trigger = ScrollTrigger.create({
+      onRefresh: this.onResize,
+      onUpdate: ({progress, direction, isActive}) => {
+        this.updateHandler(progress, direction, isActive);
+      },
+    });
   },
   created() {
     // eslint-disable-next-line no-console
     console.log(this.$auth.loggedIn);
   },
   methods: {
+    onResize() {
+      // eslint-disable-next-line no-console
+      console.log("resizing")
+    },
+    updateHandler(progress, direction, active) {
+      // eslint-disable-next-line no-console
+      console.log("updateHandler", progress, direction, active)
+
+      if (progress > 0.0) {
+        // scroll down
+        if (document.querySelector("#fixedH")) {
+          if (direction === 1) {
+            document.querySelector("#fixedH").classList.add('sticky','z-20', 'top-0', 'bg-white');
+            document.querySelector("#fixedH > div").classList.add('bg-white');
+            document.querySelector("#textC").classList.add('text-black');
+            document.querySelector("#cImage").classList.remove('hidden');
+          }
+
+          // scroll up
+          if (direction === -1) {
+            document.querySelector("#fixedH").classList.remove('sticky','z-20', 'top-0', 'bg-white');
+            document.querySelector("#fixedH > div").classList.remove('bg-white');
+            document.querySelector("#textC").classList.remove('text-black');
+            document.querySelector("#cImage").classList.add('hidden');
+          }
+        }
+      }
+    },
     switchOffMenus() {
       this.showSubMenu1 = false;
       this.showSubMenu2 = false;

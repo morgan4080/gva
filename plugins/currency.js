@@ -17,7 +17,7 @@ Vue.filter("dollar", function(value) {
 Vue.filter("shilling", function(value) {
   // Using a template literal here, that's why there are two dollar signs.
   // The first is an actual dollar.
-  return `${parseFloat(value).toFixed(2)} Ksh`
+  return `${parseFloat(value).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Ksh`
 });
 
 export const mixinX = {}

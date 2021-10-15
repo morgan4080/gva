@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="pt-16 pb-4 bg-gradient-to-tr from-yellow-gold to-yellow-600">
+    <div class="pt-16 pb-4 bg-gray-700">
       <div class="max-w-6xl mx-auto px-4 lg:px-0" >
         <div class="text-white flex flex-col lg:flex-row" >
           <div class="lg:w-1/4 lg:py-4" >

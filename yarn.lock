@@ -5287,6 +5287,10 @@ gray-matter@^4.0.2:
     section-matter "^1.0.0"
     strip-bom-string "^1.0.0"
 
+"gsap@.\\gsap-bonus.tgz":
+  version "3.8.0"
+  resolved ".\\gsap-bonus.tgz#79dfb5393fd705c63117cb5e9cf70a70cee1133a"
+
 gzip-size@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/gzip-size/-/gzip-size-6.0.0.tgz#065367fd50c239c0671cbcbad5be3e2eeb10e462"

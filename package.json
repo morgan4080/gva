@@ -18,6 +18,7 @@
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/toast": "^3.3.1",
     "core-js": "^3.15.1",
+    "gsap": ".\\gsap-bonus.tgz",
     "moment": "^2.29.1",
     "nuxt": "^2.15.7",
     "popper.js": "^1.16.1"
