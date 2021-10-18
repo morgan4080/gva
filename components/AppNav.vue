@@ -13,7 +13,7 @@
               <nuxt-link to="/about" :class="{ 'text-black' : som , 'text-black' : !som  }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
                 About us
               </nuxt-link>
-              <nuxt-link to="/blogs" :class="{ 'text-black' : som , 'text-black' : !som }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
+              <nuxt-link to="/contact" :class="{ 'text-black' : som , 'text-black' : !som }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
                 Contact Us
               </nuxt-link>
               <nuxt-link to="/offers" :class="{ 'text-black' : som , 'text-black' : !som }" class="uppercase mx-2 tracking-wide font-semibold py-3 px-4 hover:text-yellow-green" >
