@@ -139,13 +139,18 @@ export default {
   axios: {
     withCredentials: true,
     baseURL: "/api/",
-    proxy: true
+    /* proxy: true */
   },
 
   tailwindcss: {
     configPath: '~/config/tailwind.config.js',
     exposeConfig: false
   },
+
+  serverMiddleware: process.env.NODE_ENV === 'production' ? [] :
+    [
+      { handler: '~/api/index.js' }
+    ],
 
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
