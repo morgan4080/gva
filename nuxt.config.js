@@ -23,6 +23,10 @@ export default {
       },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap' },
       { rel: 'stylesheet', href: 'https://fonts.cdnfonts.com/css/brush-king' }
+    ],
+    script: [
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js' },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js' }
     ]
   },
 
@@ -124,7 +128,6 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    '@nuxt/image',
     '@nuxtjs/toast',
     'portal-vue/nuxt',
     '@nuxtjs/axios',

@@ -16,3 +16,5 @@ app.get("/api", (req, res) => {
   console.log(req.query);
   res.json({ data: 'data' });
 })
+
+module.exports = app;

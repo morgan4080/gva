@@ -415,9 +415,6 @@
 </template>
 
 <script>
-
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 import Logo from "~/components/Logo.vue";
 
 
