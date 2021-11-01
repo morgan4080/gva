@@ -20,3 +20,8 @@ export default Vue.extend({
   }
 })
 </script>
+<style>
+a.nuxt-link-exact-active {
+  font-weight: 800 !important;;
+}
+</style>

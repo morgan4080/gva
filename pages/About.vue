@@ -1,48 +1,19 @@
 <template>
-  <div class="bg-white overflow-hidden">
-    <div class="relative max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto overflow-hidden pt-36 px-6 lg:px-16">
 
-      <div class="mt-8 lg:grid lg:grid-cols-2 lg:gap-8">
+    <h1 class="text-5xl font-extrabold tracking-tight">About <span class="text-yellow-600"> Great Vacations</span></h1>
 
-        <div class="mt-8 lg:mt-0">
-          <div class="relative text-base mx-auto max-w-prose lg:max-w-none">
-            <figure>
-              <div class="aspect-w-12 aspect-h-7 lg:aspect-none">
-                <img class="rounded-lg shadow-lg object-cover object-center" src="https://images.unsplash.com/photo-1546913199-55e06682967e?ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;crop=focalpoint&amp;fp-x=.735&amp;fp-y=.55&amp;w=1184&amp;h=1376&amp;q=80" alt="Whitney leaning against a railing on a downtown street" width="1184" height="1376">
-              </div>
-              <figcaption class="mt-3 flex text-sm text-gray-500">
-                <svg class="flex-none w-5 h-5 text-gray-400" x-description="Heroicon name: solid/camera" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="ml-2">Photograph by Marcus O’Leary</span>
-              </figcaption>
-            </figure>
-          </div>
-
-          <div class="text-base max-w-prose mx-auto lg:max-w-none">
-            <p class="text-lg text-gray-500">Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique pellentesque. Blandit amet, sed aenean erat arcu morbi.</p>
-          </div>
-
-        </div>
-
-        <div class="relative lg:row-start-1 lg:col-start-2">
-          <div class="mt-5 prose prose-indigo text-gray-500 mx-auto lg:max-w-none lg:row-start-1 lg:col-start-1">
-            <p>Sollicitudin tristique eros erat odio sed vitae, consequat turpis elementum. Lorem nibh vel, eget pretium arcu vitae. Eros eu viverra donec ut volutpat donec laoreet quam urna.</p>
-            <p>Bibendum eu nulla feugiat justo, elit adipiscing. Ut tristique sit nisi lorem pulvinar. Urna, laoreet fusce nibh leo. Dictum et et et sit. Faucibus sed non gravida lectus dignissim imperdiet a.</p>
-            <p>Dictum magnis risus phasellus vitae quam morbi. Quis lorem lorem arcu, metus, egestas netus cursus. In.</p>
-            <ul role="list">
-              <li>Quis elit egestas venenatis mattis dignissim.</li>
-              <li>Cras cras lobortis vitae vivamus ultricies facilisis tempus.</li>
-              <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
-            </ul>
-            <p>Rhoncus nisl, libero egestas diam fermentum dui. At quis tincidunt vel ultricies. Vulputate aliquet velit faucibus semper. Pellentesque in venenatis vestibulum consectetur nibh id. In id ut tempus egestas. Enim sit aliquam nec, a. Morbi enim fermentum lacus in. Viverra.</p>
-            <h3>How we helped</h3>
-            <p>Tincidunt integer commodo, cursus etiam aliquam neque, et. Consectetur pretium in volutpat, diam. Montes, magna cursus nulla feugiat dignissim id lobortis amet. Laoreet sem est phasellus eu proin massa, lectus. Diam rutrum posuere donec ultricies non morbi. Mi a platea auctor mi.</p>
-            <p>Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique pellentesque. Blandit amet, sed aenean erat arcu morbi.</p>
-          </div>
-        </div>
-      </div>
+    <div class="text-grey-darkest mt-6 mb-16 sm:mb-28 sm:mt-12 text-lg antialiased leading-loose">
+      <img class="mt-4 sm:mt-0 sm:w-1/3 sm:ml-8 sm:float-right block rounded" src="~/static/937036E5-254C-4813-873E-43C697C13030.jpeg" alt="Jonathan Reinink">
+      <p class="mt-4">
+        Great Vacation Adventures & Travel is a flagship leisure travel brand in Kenya and East Africa. We guide and cater to your travel and needs as you tour native exotic locations. We are known for our range of customized travel offerings.
+      </p>
+      <p class="mt-4">
+        Great Vacation Adventures gives you the opportunity to explore interesting and unusual places at a great price. If you have any questions at any time during your trip, 24 hour support is offered, so there will always be someone to answer your queries. There are various adventure styles of trip on offer to cater for different tastes, along with a wide range of destinations and departure dates. You can travel far and wide, with enthusiastic and helpful guides to assist you during your trip.</p>
+      <h2 class="mt-12 text-medium-purple text-2xl font-bold">Brief history</h2>
+      <p class="mt-4">Great Vacation Adventures & Travel was started in 2016 by Avni Shah. She had the belief that other travelers would want to share the experiences and authentic adventures of travel, in a responsible and sustainable way. Back then it was just a one-man show, and now it has grown to a company. Originally just a few trips around Kenya, there is now hundreds of trips on offer around the East African region! Since its first days, there have now been over 5,000 travelers who have seen new sights, gained new experiences, and made new friends. While things may have changed a bit over that time, the core values are the same; Authentic experiences and sustainable travel.</p>
     </div>
+
   </div>
 </template>
 
