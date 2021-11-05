@@ -50,22 +50,6 @@ export default {
       middleware: ['auth']
     },
     strategies: {
-      local: {
-        token: {
-          property: 'token',
-          required: true,
-          type: 'Bearer'
-        },
-        user: {
-          property: false,
-          autoFetch: true
-        },
-        endpoints: {
-          login: { url: '/api/login', method: 'post' },
-          logout: false,
-          user: { url: '/api/me', method: 'get' }
-        }
-      },
       google: {
         scheme: 'oauth2',
         clientId: '353107788542-qccnahstd2fg37fkldlbgkam3uu8loc0.apps.googleusercontent.com',
@@ -81,26 +65,9 @@ export default {
           property: 'token',
           type: 'Bearer'
         },
-        redirectUri: `http://localhost:3000/login`,
+        redirectUri: `http://localhost:3000`,
         grantType: 'authorization_code'
-      },
-      facebook: {
-        scheme: 'oauth2',
-        endpoints: {
-          // userInfo: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email'
-          userInfo: 'http://localhost:3000/api/me',
-          token: 'http://localhost:3000/api/login?callback=true&provider=facebook',
-          logout: false
-        },
-        clientId: '525187695512107',
-        scope: ['public_profile', 'email'],
-        redirectUri: `http://localhost:3000/login`,
-        token: {
-          property: 'token',
-          type: 'Bearer'
-        },
-        responseType: 'code',
-      },
+      }
     }
   },
 
