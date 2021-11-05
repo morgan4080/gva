@@ -116,8 +116,8 @@ export default {
     configPath: '~/config/tailwind.config.js',
     exposeConfig: false
   },
-
-  serverMiddleware: process.env.NODE_ENV === 'production' ? [] :
+  /* process.env.NODE_ENV === 'production' ? [] : */
+  serverMiddleware:
     [
       { handler: '~/api/index.js' }
     ],
