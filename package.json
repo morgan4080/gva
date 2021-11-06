@@ -50,7 +50,7 @@
     "portal-vue": "^2.1.7",
     "postcss": "^8.3.5",
     "prettier": "^2.3.2",
-    "prisma": "3.4.1",
+    "prisma": "^3.4.1",
     "tailwindcss": "^2.2.16"
   }
 }
