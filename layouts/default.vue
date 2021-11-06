@@ -21,6 +21,28 @@ export default Vue.extend({
 })
 </script>
 <style>
+html{
+  scroll-behavior:smooth
+}
+
+::-webkit-scrollbar{
+  width:14px
+}
+
+::-webkit-scrollbar-track{
+  background:#fff
+}
+
+::-webkit-scrollbar-thumb{
+  background:#52596d;
+  border:2px solid #fcf9ed;
+  border-radius:25px
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg, #902dc9,#ed64a6,#ea7500)
+}
+
 a.nuxt-link-exact-active {
   font-weight: 800 !important;;
 }

@@ -50,22 +50,38 @@ export default {
       middleware: ['auth']
     },
     strategies: {
+      local: {
+        token: {
+          property: 'token',
+          required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: false,
+          autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/api/login', method: 'post' },
+          logout: false,
+          user: { url: '/api/me', method: 'get' }
+        }
+      },
       google: {
         scheme: 'oauth2',
-        clientId: '353107788542-qccnahstd2fg37fkldlbgkam3uu8loc0.apps.googleusercontent.com',
+        clientId: process.env.CLIENT_ID,
         codeChallengeMethod: 'S256',
         scope: ['openid', 'profile', 'email'],
         responseType: 'code',
         endpoints: {
-          userInfo: 'http://localhost:3000/api/me',
-          token: 'http://localhost:3000/api/login?callback=true&provider=google', // post request with code property in exchange for token
+          userInfo: process.env.NODE_ENV === 'production' ? 'https://greatvacationadventuresandtravel.com/api/me' : 'http://localhost:3000/api/me',
+          token: process.env.NODE_ENV === 'production' ? 'https://greatvacationadventuresandtravel.com/api/me' : 'http://localhost:3000/api/login?callback=true&provider=google', // post request with code property in exchange for token
           logout: false
         },
         token: {
           property: 'token',
           type: 'Bearer'
         },
-        redirectUri: `http://localhost:3000`,
+        redirectUri: process.env.NODE_ENV === 'production' ? 'https://greatvacationadventuresandtravel.com' : `http://localhost:3000`,
         grantType: 'authorization_code'
       }
     }
