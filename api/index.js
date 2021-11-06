@@ -12,7 +12,7 @@ const cors = require('cors')
 
 const { OAuth2Client } = require('google-auth-library')
 
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const jwt = require('jsonwebtoken')
 
@@ -94,7 +94,7 @@ async function doLogin(req) {
       }
     }
 
-    const match = await bcrypt.compare(req.body.password, user.password)
+    const match = bcrypt.compareSync(req.body.password, user.password)
 
     delete user.password
 
