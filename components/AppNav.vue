@@ -91,7 +91,7 @@
                 Get Quote
               </nuxt-link>
 
-              <button type="button" class="px-2 pr-3 flex items-center justify-center border border-blue-500 uppercase bg-white inline-block tracking-wide font-semibold text-blue-500 rounded-full transform hover:scale-105 transition ease-in-out duration-100" @click="$auth.loginWith('google')">
+              <button v-show="!loggedIn" type="button" class="px-2 pr-3 flex items-center justify-center border border-blue-500 uppercase bg-white inline-block tracking-wide font-semibold text-blue-500 rounded-full transform hover:scale-105 transition ease-in-out duration-100" @click="signInWithGoogle">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46px" height="46px" viewBox="0 0 46 46" version="1.1">
                   <title>btn_google_dark_normal_ios</title>
                   <desc>Created with Sketch.</desc>
@@ -140,7 +140,7 @@
                 </svg>
               </button>
 
-              <div v-show="$auth.loggedIn" class="relative flex justify-center text-left" @mouseleave="showDropdown" >
+              <div v-show="loggedIn" class="relative flex justify-center text-left" @mouseleave="showDropdown" >
                 <button type="button" class="capitalize inline-flex items-center mx-2 font-semibold px-1 pr-3 bg-white text-black rounded-full transform hover:scale-105 transition ease-in-out duration-100" @click="$router.push('/profile')" @mouseenter="showDropdown" >
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M43.2 24C43.2 34.6039 34.6039 43.2 24 43.2C13.3962 43.2 4.80002 34.6039 4.80002 24C4.80002 13.3961 13.3962 4.79999 24 4.79999C34.6039 4.79999 43.2 13.3961 43.2 24ZM28.8 16.8C28.8 19.451 26.651 21.6 24 21.6C21.3491 21.6 19.2 19.451 19.2 16.8C19.2 14.149 21.3491 12 24 12C26.651 12 28.8 14.149 28.8 16.8ZM23.9999 26.4C19.1578 26.4 14.9855 29.2679 13.089 33.3977C15.7297 36.4609 19.6384 38.4 24 38.4C28.3615 38.4 32.2701 36.4609 34.9108 33.3979C33.0143 29.268 28.842 26.4 23.9999 26.4Z" fill="#000000"/>
@@ -216,6 +216,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Logo from "~/components/Logo.vue";
 
 
@@ -236,7 +237,7 @@ export default {
       homeIs: false,
       som: false,
       showLoader: false,
-      showLoader0: false,
+      loggedIn: false,
       services: [
         {
           id: 1,
@@ -328,6 +329,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['supabase']),
     showSubMenu() {
       if (!this.showSubMenu0) {
         this.switchOffMenus()
@@ -341,7 +343,8 @@ export default {
       return this.showSubMenu00
     },
     names() {
-      return (this.$auth.user) ? this.$auth.user.name : 'my account'
+      // from super base
+      return 'my account'
     }
   },
   watch:{
@@ -351,6 +354,8 @@ export default {
     }
   },
   mounted() {
+    // eslint-disable-next-line no-console
+    console.log("current", this.$router.currentRoute.path)
     if (this.$router.currentRoute.path === "/") this.som = true
     gsap.registerPlugin(ScrollTrigger);
     this.trigger = ScrollTrigger.create({
@@ -360,37 +365,20 @@ export default {
       },
     });
   },
-  created() {
-    if (this.$router.currentRoute.query.hasOwnProperty('code')) {
-      this.showLoader = true
-    }
-    if (this.$router.currentRoute.query.hasOwnProperty('token')) {
-      // check for token param
-      // set the token globally and on request header
-      // make request to backend to update users.email_verified_at
-      // eslint-disable-next-line no-console
-      console.log("found you")
-      const verifyMe = async () => {
-        this.showLoader0 = true
-        // set new token
-        this.$auth.strategy.token.set(this.$router.currentRoute.query.token)
-        return await this.$axios.post('api/signup?verify=true', {
-          token: this.$router.currentRoute.query.token,
-        })
-      }
-      verifyMe().then((data)=> {
-        // eslint-disable-next-line no-console
-        console.log("verify response", data)
-        this.showLoader0 = false
-      }).catch((e) => {
-        // eslint-disable-next-line no-console
-        console.log(e)
-      })
-    }
-    // eslint-disable-next-line no-console
-    // console.log(this.$auth.loggedIn);
-  },
   methods: {
+    async signInWithGoogle() {
+      const { user, session, error } = await this.supabase.auth.signIn({
+        provider: 'google'
+      });
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.warn("sign in error", error)
+        this.loggedIn = false
+      }
+      // eslint-disable-next-line no-console
+      console.log("authenticated", user, session)
+      this.loggedIn = true
+    },
     onResize() {
       // eslint-disable-next-line no-console
       console.log("resizing")
@@ -431,10 +419,13 @@ export default {
       this.showMobileMenu = !this.showMobileMenu
     },
     async logout() {
-      await this.$auth.logout();
-      this.$auth.strategy.token.reset();
-      this.$store.commit('setAuth', null);
-      location.reload()
+      const { error } = await this.supabase.auth.signOut();
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.warn("logout error", error)
+        this.loggedIn = true
+      }
+      this.loggedIn = false
     },
     showDropdown() {
       this.dropDownOpen = !this.dropDownOpen;

@@ -30,70 +30,15 @@ export default {
     ]
   },
 
-  auth: {
-    rewriteRedirects: true,
-    fullPathRedirect: true,
-    cookie: {
-      prefix: 'auth.',
-      options: {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 30
-      }
-    },
-    redirect: {
-      login: '/login',
-      logout: '/login',
-      callback: '/login',
-      home: '/order'
-    },
-    router: {
-      middleware: ['auth']
-    },
-    strategies: {
-      local: {
-        token: {
-          property: 'token',
-          required: true,
-          type: 'Bearer'
-        },
-        user: {
-          property: false,
-          autoFetch: true
-        },
-        endpoints: {
-          login: { url: '/api/login', method: 'post' },
-          logout: false,
-          user: { url: '/api/me', method: 'get' }
-        }
-      },
-      google: {
-        scheme: 'oauth2',
-        clientId: process.env.CLIENT_ID,
-        codeChallengeMethod: 'S256',
-        scope: ['openid', 'profile', 'email'],
-        responseType: 'code',
-        endpoints: {
-          userInfo: process.env.NODE_ENV === 'production' ? 'https://greatvacationadventuresandtravel.com/api/me' : 'http://localhost:3000/api/me',
-          token: process.env.NODE_ENV === 'production' ? 'https://greatvacationadventuresandtravel.com/api/me' : 'http://localhost:3000/api/login?callback=true&provider=google', // post request with code property in exchange for token
-          logout: false
-        },
-        token: {
-          property: 'token',
-          type: 'Bearer'
-        },
-        redirectUri: process.env.NODE_ENV === 'production' ? 'https://greatvacationadventuresandtravel.com' : `http://localhost:3000`,
-        grantType: 'authorization_code'
-      }
-    }
-  },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    `~/plugins/currency.js`
+    `~/plugins/currency.js`,
+    `~/plugins/supabase.client.js`,
+    `~/plugins/dotenv.server.js`
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -113,9 +58,7 @@ export default {
     '@nuxt/content',
     '@nuxtjs/toast',
     'portal-vue/nuxt',
-    '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
-    '@nuxtjs/proxy',
+    '@nuxtjs/axios'
   ],
 
   image: {
@@ -124,8 +67,7 @@ export default {
 
   axios: {
     withCredentials: true,
-    baseURL: "/api/",
-    /* proxy: true */
+    baseURL: "/api/"
   },
 
   tailwindcss: {
