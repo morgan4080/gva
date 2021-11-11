@@ -67,7 +67,7 @@
                   leave-class="transform opacity-100 translate-y-0"
                   leave-to-class="transform opacity-0 translate-y-1"
                 >
-                  <div v-if="showSubMenu" id="evOfInt"  class="absolute right-0 -mr-3 pt-5 transform px-2 w-screen lg:mt-2 sm:px-0 lg:ml-0 lg:left-2/3 capitalize" style="max-width: 15rem;" @mouseleave="showSubMenu0 = false" >
+                  <div v-if="showSubMenu" id="evOfInt"  class="absolute right-0 -mr-3 pt-5 transform px-2 w-screen lg:mt-2 sm:px-0 lg:ml-0 lg:left-1/2 capitalize" style="max-width: 15rem;" @mouseleave="showSubMenu0 = false" >
                     <div class="rounded-lg shadow-2xl">
                       <div class="rounded-lg shadow-xl">
                         <div class="rounded-lg z-20 relative grid gap-6 px-5 sm:gap-8 sm:p-6 bg-gradient-to-br from-yellow-gold to-yellow-600" >
@@ -91,7 +91,7 @@
                 Get Quote
               </nuxt-link>
 
-              <button v-show="!loggedIn" type="button" class="px-2 pr-3 flex items-center justify-center border border-blue-500 uppercase bg-white inline-block tracking-wide font-semibold text-blue-500 rounded-full transform hover:scale-105 transition ease-in-out duration-100" @click="signInWithGoogle">
+              <button v-show="!getLoggedInState" type="button" class="px-2 pr-3 flex items-center justify-center border border-blue-500 uppercase bg-white inline-block tracking-wide font-semibold text-blue-500 rounded-full transform hover:scale-105 transition ease-in-out duration-100" @click="signInWithGoogle">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="46px" height="46px" viewBox="0 0 46 46" version="1.1">
                   <title>btn_google_dark_normal_ios</title>
                   <desc>Created with Sketch.</desc>
@@ -140,16 +140,22 @@
                 </svg>
               </button>
 
-              <div v-show="loggedIn" class="relative flex justify-center text-left" @mouseleave="showDropdown" >
-                <button type="button" class="capitalize inline-flex items-center mx-2 font-semibold px-1 pr-3 bg-white text-black rounded-full transform hover:scale-105 transition ease-in-out duration-100" @click="$router.push('/profile')" @mouseenter="showDropdown" >
-                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M43.2 24C43.2 34.6039 34.6039 43.2 24 43.2C13.3962 43.2 4.80002 34.6039 4.80002 24C4.80002 13.3961 13.3962 4.79999 24 4.79999C34.6039 4.79999 43.2 13.3961 43.2 24ZM28.8 16.8C28.8 19.451 26.651 21.6 24 21.6C21.3491 21.6 19.2 19.451 19.2 16.8C19.2 14.149 21.3491 12 24 12C26.651 12 28.8 14.149 28.8 16.8ZM23.9999 26.4C19.1578 26.4 14.9855 29.2679 13.089 33.3977C15.7297 36.4609 19.6384 38.4 24 38.4C28.3615 38.4 32.2701 36.4609 34.9108 33.3979C33.0143 29.268 28.842 26.4 23.9999 26.4Z" fill="#000000"/>
-                  </svg>
-                  <span>{{ names }}</span>
-                  <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                  </svg>
-                </button>
+              <div v-show="getLoggedInState" class="relative flex justify-center text-left">
+                <a href="#" class="flex-shrink-0 group block bg-white px-1 py-1 pr-3 rounded-full" @mouseover="dropDownOpen = true">
+                  <div class="flex items-center">
+                    <div>
+                      <img class="inline-block h-9 w-9 rounded-full" :src="dp" alt="">
+                    </div>
+                    <div class="ml-3">
+                      <p class="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                        {{ names }}
+                      </p>
+                    </div>
+                    <svg class="-mr-1 ml-2 h-5 w-5 text-gray-700" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                </a>
                 <transition
                   enter-active-class="transition ease-out duration-200"
                   leave-active-class="transition ease-in duration-150"
@@ -158,20 +164,13 @@
                   leave-class="transform opacity-100 translate-y-0"
                   leave-to-class="transform opacity-0 translate-y-1"
                 >
-                  <div v-show="dropDownOpen" class="absolute right-0 -mr-3 px-2 w-screen mt-16 sm:px-0 lg:ml-0 capitalize" style="max-width: 15rem;">
+                  <div v-show="dropDownOpen" class="absolute right-0 -mr-3 px-2 w-screen mt-16 sm:px-0 lg:ml-0 capitalize" style="max-width: 15rem;" @mouseleave="dropDownOpen = false">
                     <div class="rounded-lg shadow-2xl">
                       <div class="rounded-lg shadow-xl">
-                        <div class="rounded-lg z-20 relative grid gap-6 px-5 sm:gap-8 sm:p-6 bg-gradient-to-br from-teal-300 to-teal-600" >
-                          <div class="-m-4 p-2 flex items-start space-x-4 rounded-lg transition ease-in-out duration-150" role="menuitem" @click="$router.push('/profile');showDropdown;">
-                            <div class="flex-1 space-y-1">
-                              <div class="transform cursor-pointer font-semibold hover:translate-x-2 hover:text-white leading-6 text-left text-black text-lg -mb-1 transition ease-in-out duration-150">
-                                Profile
-                              </div>
-                            </div>
-                          </div>
+                        <div class="rounded-lg z-20 relative grid gap-6 px-5 sm:gap-8 sm:p-6 bg-gradient-to-br from-yellow-gold to-yellow-600" >
                           <div class="-m-4 p-2 flex items-start space-x-4 rounded-lg transition ease-in-out duration-150" role="menuitem" @click="logout">
                             <div class="flex-1 space-y-1">
-                              <div class="transform cursor-pointer font-semibold hover:translate-x-2 hover:text-white leading-6 text-left text-black text-lg -mb-1 transition ease-in-out duration-150">
+                              <div class="transform cursor-pointer font-semibold hover:translate-x-2 hover:text-white leading-6 text-left text-black text-base -mb-1 transition ease-in-out duration-150" @click='logout'>
                                 Log Out
                               </div>
                             </div>
@@ -216,7 +215,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Logo from "~/components/Logo.vue";
 
 
@@ -237,7 +236,6 @@ export default {
       homeIs: false,
       som: false,
       showLoader: false,
-      loggedIn: false,
       services: [
         {
           id: 1,
@@ -329,7 +327,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['supabase']),
+    ...mapGetters(['getLoggedInState', 'getUser']),
     showSubMenu() {
       if (!this.showSubMenu0) {
         this.switchOffMenus()
@@ -344,7 +342,37 @@ export default {
     },
     names() {
       // from super base
-      return 'my account'
+
+      let name = null
+
+      if (this.getUser) {
+        // eslint-disable-next-line camelcase
+        const { user_metadata } = this.getUser
+        // eslint-disable-next-line camelcase
+        if (user_metadata) {
+          // eslint-disable-next-line camelcase
+          const { full_name } = user_metadata
+          // eslint-disable-next-line camelcase
+          name = full_name
+        }
+      }
+      return name
+    },
+    dp() {
+      let dp = null
+
+      if (this.getUser) {
+        // eslint-disable-next-line camelcase
+        const { user_metadata } = this.getUser
+        // eslint-disable-next-line camelcase
+        if (user_metadata) {
+          // eslint-disable-next-line camelcase
+          const { avatar_url } = user_metadata
+          // eslint-disable-next-line camelcase
+          dp = avatar_url
+        }
+      }
+      return dp
     }
   },
   watch:{
@@ -354,8 +382,6 @@ export default {
     }
   },
   mounted() {
-    // eslint-disable-next-line no-console
-    console.log("current", this.$router.currentRoute.path)
     if (this.$router.currentRoute.path === "/") this.som = true
     gsap.registerPlugin(ScrollTrigger);
     this.trigger = ScrollTrigger.create({
@@ -364,20 +390,24 @@ export default {
         this.updateHandler(progress, direction, isActive);
       },
     });
+    setTimeout(() => {
+      this.storeUser()
+    }, 1000)
   },
   methods: {
+    ...mapActions(['Oauth2Login', 'logout', 'storeUser']),
     async signInWithGoogle() {
-      const { user, session, error } = await this.supabase.auth.signIn({
-        provider: 'google'
-      });
-      if (error) {
-        // eslint-disable-next-line no-console
-        console.warn("sign in error", error)
-        this.loggedIn = false
+      try {
+        this.showLoader = true
+        await this.Oauth2Login({ provider: 'google' })
+        setTimeout(() => {
+          this.storeUser()
+        }, 1000)
+      } catch (error) {
+        alert(error.error_description || error.message)
+      } finally {
+        this.showLoader = false
       }
-      // eslint-disable-next-line no-console
-      console.log("authenticated", user, session)
-      this.loggedIn = true
     },
     onResize() {
       // eslint-disable-next-line no-console
@@ -417,15 +447,6 @@ export default {
       // eslint-disable-next-line no-console
       console.log("remove menu");
       this.showMobileMenu = !this.showMobileMenu
-    },
-    async logout() {
-      const { error } = await this.supabase.auth.signOut();
-      if (error) {
-        // eslint-disable-next-line no-console
-        console.warn("logout error", error)
-        this.loggedIn = true
-      }
-      this.loggedIn = false
     },
     showDropdown() {
       this.dropDownOpen = !this.dropDownOpen;
