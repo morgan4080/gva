@@ -381,9 +381,6 @@ export default {
       this.som = to.path === "/"
     }
   },
-  created() {
-    this.storeUser()
-  },
   mounted() {
     if (this.$router.currentRoute.path === "/") this.som = true
     gsap.registerPlugin(ScrollTrigger);
