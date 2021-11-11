@@ -390,11 +390,9 @@ export default {
         this.updateHandler(progress, direction, isActive);
       },
     });
-    if (this.$router.currentRoute.query.hasOwnProperty('code')) {
-      // eslint-disable-next-line no-console
-      console.log('token code')
+    setTimeout(() => {
       this.storeUser()
-    }
+    }, 1000)
   },
   methods: {
     ...mapActions(['Oauth2Login', 'logout', 'storeUser']),
