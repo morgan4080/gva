@@ -381,6 +381,9 @@ export default {
       this.som = to.path === "/"
     }
   },
+  created() {
+    this.storeUser()
+  },
   mounted() {
     if (this.$router.currentRoute.path === "/") this.som = true
     gsap.registerPlugin(ScrollTrigger);
@@ -390,9 +393,11 @@ export default {
         this.updateHandler(progress, direction, isActive);
       },
     });
-    setTimeout(() => {
+    if (this.$router.currentRoute.query.hasOwnProperty('code')) {
+      // eslint-disable-next-line no-console
+      console.log('token code')
       this.storeUser()
-    }, 1000)
+    }
   },
   methods: {
     ...mapActions(['Oauth2Login', 'logout', 'storeUser']),
