@@ -251,6 +251,16 @@ export default {
           id: 3,
           name: 'Flight Booking',
           href: '/flight-booking'
+        },
+        {
+          id: 4,
+          name: 'Pickup & dropping',
+          href: '/pickup-dropping'
+        },
+        {
+          id: 5,
+          name: 'Tour arrangements',
+          href: '/tour-arrangements'
         }
       ],
       packages: [
@@ -261,8 +271,8 @@ export default {
         },
         {
           id: 2,
-          name: 'Bird Watching Safaris',
-          href: '/bird-watching-safaris'
+          name: 'Tours & Adventures',
+          href: '/adventure-tours'
         },
         {
           id: 3,
@@ -287,11 +297,6 @@ export default {
           href: '/services'
         },
         {
-          id: 4,
-          name: 'Why Us',
-          href: '/why-us'
-        },
-        {
           id: 5,
           name: 'Contact Us',
           href: '/contact'
@@ -312,11 +317,6 @@ export default {
           id: 3,
           name: 'Services',
           href: '/services'
-        },
-        {
-          id: 4,
-          name: 'Why Us',
-          href: '/why-us'
         },
         {
           id: 5,

@@ -47,22 +47,22 @@
       </div>
       <div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
         <div class="max-w-lg mx-auto lg:max-w-none">
-          <form action="#" method="POST" class="grid grid-cols-1 gap-y-6">
+          <form @submit.prevent='makeContact' class="grid grid-cols-1 gap-y-6">
             <div>
               <label for="full-name" class="sr-only">Full name</label>
-              <input type="text" name="full-name" id="full-name" autocomplete="name" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md" placeholder="Full name">
+              <input id="full-name" v-model='contactForm.fullName' type="text" name="full-name" autocomplete="name" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md" placeholder="Full name" required>
             </div>
             <div>
               <label for="email" class="sr-only">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md" placeholder="Email">
+              <input id="email" v-model='contactForm.email' name="email" type="email" autocomplete="email" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md" placeholder="Email" required>
             </div>
             <div>
               <label for="phone" class="sr-only">Phone</label>
-              <input type="text" name="phone" id="phone" autocomplete="tel" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md" placeholder="Phone">
+              <input id="phone" v-model='contactForm.phone' type="text"  name="phone" autocomplete="tel" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md" placeholder="Phone" required>
             </div>
             <div>
               <label for="message" class="sr-only">Message</label>
-              <textarea id="message" rows="4" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border border-gray-300 rounded-md" placeholder="Message"></textarea>
+              <textarea id="message" v-model='contactForm.message' rows="4" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border border-gray-300 rounded-md" placeholder="Message" required></textarea>
             </div>
             <div>
               <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
@@ -78,7 +78,21 @@
 
 <script>
 export default {
-  name: 'Contact'
+  data() {
+    return {
+      contactForm: {
+        fullName: null,
+        email: null,
+        phone: null,
+        message: null
+      }
+    }
+  },
+  methods: {
+    makeContact() {
+
+    }
+  }
 }
 </script>
 
