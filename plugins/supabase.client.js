@@ -32,13 +32,11 @@ export default function( { store }, inject ) {
   })
 
   inject('storeUser', () => {
-    const tokenObject = window.localStorage.getItem('supabase.auth.token')
     const user = supabase.auth.user()
-    // eslint-disable-next-line no-console
-    console.log(user)
-    if (tokenObject && typeof tokenObject === 'string') {
+
+    if (user) {
       store.commit('setLoggedInState', true)
-      store.commit('setUser', JSON.parse(tokenObject).currentSession.user)
+      store.commit('setUser', user)
     }
   })
 

@@ -31,10 +31,5 @@ export const actions = {
   },
   async storeUser() {
     await this.$storeUser();
-  },
-  nuxtServerInit ({ dispatch }) {
-    setTimeout(() => {
-      dispatch('storeUser')
-    }, 1000)
   }
 }
