@@ -31,5 +31,23 @@ export const actions = {
   },
   async storeUser() {
     await this.$storeUser();
+  },
+  // eslint-disable-next-line no-empty-pattern
+  contactUs({}, payload) {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { context, formData } = payload; // contactForm
+
+        const serverUrl = `?context=${context}`;
+
+        const data = await this.$axios.post(serverUrl, formData);
+
+        resolve(data)
+
+      } catch (e) {
+        reject(e)
+      }
+    })
   }
 }
