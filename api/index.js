@@ -20,8 +20,10 @@ app.all("/api", async (req, res) => {
   // eslint-disable-next-line no-console
   console.log(req.query, req.body, req.method);
 
-  if (req.query.context === 'contactForm' && req.method === 'POST') {
+  if (req.query.context === 'contactForm' || req.query.context === 'quoteForm' && req.method === 'POST') {
     const form = new IncomingForm({ multiples: true })
+
+    const context = req.query.context
 
     let result
 
@@ -51,8 +53,8 @@ app.all("/api", async (req, res) => {
       service: 'gmail',
       auth: {
         type: 'OAuth2',
-        user: process.env.MAIL_USERNAME, // 'greatvacationadventurestravel@gmail.com'
-        pass: process.env.MAIL_PASSWORD, // 'asdf54321'
+        user: process.env.MAIL_USERNAME,
+        pass: process.env.MAIL_PASSWORD,
         clientId: process.env.OAUTH_CLIENTID,
         clientSecret: process.env.OAUTH_CLIENT_SECRET,
         refreshToken: process.env.OAUTH_REFRESH_TOKEN
@@ -69,9 +71,33 @@ app.all("/api", async (req, res) => {
       email: process.env.MAIL_USERNAME
     }
 
-    const message = {
-      subject: 'Website Contact Lead',
-      html: `
+    let message
+
+    if (context === 'quoteForm') {
+      message = {
+        subject: 'Website Quote Lead',
+        html: `
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+          <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Great Vacations Adventures & Travel</title>
+          </head>
+          <body style="padding: 0; margin: 0;" bgcolor="#eeeeee">
+            <span><strong>Last name:</strong>${result.fields.firstName}</span><br>
+            <span><strong>Last name:</strong>${result.fields.lastName}</span><br>
+            <span><strong>Email:</strong>${result.fields.email}</span><br>
+            <span><strong>Phone:</strong>${result.fields.phone}</span><br>
+            <span><strong>Inquiry:</strong>${origin.message}</span><br>
+          </body>
+        </html>
+      `
+      }
+    } else if (context === 'contactForm') {
+      message = {
+        subject: 'Website Contact Lead',
+        html: `
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
           <head>
@@ -86,7 +112,8 @@ app.all("/api", async (req, res) => {
             <span><strong>Message:</strong>${origin.message}</span><br>
           </body>
         </html>
-      `
+        `
+      }
     }
 
     const mailOptions = {
@@ -110,9 +137,9 @@ app.all("/api", async (req, res) => {
       res.status(405).json({ error: err })
     }
 
+  } else {
+    res.json({ data: 'data' });
   }
-
-  res.json({ data: 'data' });
 })
 
 module.exports = app;

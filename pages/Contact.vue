@@ -47,7 +47,7 @@
       </div>
       <div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
         <div class="max-w-lg mx-auto lg:max-w-none">
-          <form @submit.prevent='makeContact' class="grid grid-cols-1 gap-y-6">
+          <form class="grid grid-cols-1 gap-y-6" @submit.prevent='makeContact' >
             <div>
               <label for="full-name" class="sr-only">Full name</label>
               <input id="full-name" v-model='contactForm.fullName' type="text" name="full-name" autocomplete="name" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md" placeholder="Full name" required>
@@ -63,6 +63,11 @@
             <div>
               <label for="message" class="sr-only">Message</label>
               <textarea id="message" v-model='contactForm.message' rows="4" class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border border-gray-300 rounded-md" placeholder="Message" required></textarea>
+            </div>
+            <div>
+              <p v-if='response.status' :class='{"text-green-400" : response.status === 200, "text-red-600" : response.status === 405 }' class="text-xs font-medium text-red-600">
+                {{ response.message }}
+              </p>
             </div>
             <div>
               <button type="submit" class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
@@ -122,10 +127,10 @@ export default {
         const data = await this.contactUs(payload)
         // eslint-disable-next-line no-console
         console.log("response data", data)
-        this.response.message = "form error"
+        this.response.message = "Email sent successfully"
         this.response.status = 200
       } catch (e) {
-        this.response.message = "form error"
+        this.response.message = "Email not sent"
         this.response.status = 405
       } finally {
         this.loading = false
